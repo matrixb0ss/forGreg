@@ -6,7 +6,6 @@ const grantType = 'cred';
 
 const CORS = 'https://cors-anywhere.herokuapp.com/';
 const tokenURL = `${CORS}https://login.insideview.com/Auth/login/v1/token.json`;
-// const companiesURL = `${CORS}https://api.insideview.com/api/v1/companies`;
 
 
 export const getAccessToken = () => {
@@ -31,14 +30,15 @@ export const getAccessToken = () => {
     .then(({ data: { accessTokenDetails } }) => {
         const { accessToken, expirationTime } = accessTokenDetails;
         
-        // getCompaniesData(accessToken);
+        // getCompanies(accessToken);
         localStorage.setItem('token', accessToken);
         localStorage.setItem('tokenExpirationTime', expirationTime);
     });
 }
 
 
-// const getCompaniesData = (accessToken) => {
+
+// const getCompanies = (accessToken) => {
 //     return axios({
 //         method: 'get',
 //         url: 'https://api.insideview.com/api/v1/companies?name=1&website=1&ticker=1',
@@ -46,7 +46,8 @@ export const getAccessToken = () => {
 //             accessToken,
 //         }
 //     })
-//     .then(res => res.data.companies);
+//     .then(res => res)
+//     .then(res => console.log(res.data.companies));
 // };
 
 
