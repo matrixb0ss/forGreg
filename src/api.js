@@ -9,7 +9,7 @@ const tokenURL = `${CORS}https://login.insideview.com/Auth/login/v1/token.json`;
 // const companiesURL = `${CORS}https://api.insideview.com/api/v1/companies`;
 
 
-export const fetchCompaniesByToken = () => {
+export const getAccessToken = () => {
     return axios({ 
         method: 'post',
         url: tokenURL,
@@ -22,33 +22,36 @@ export const fetchCompaniesByToken = () => {
             'Content-Type': 'application/json',
         }
     })
-    .then(res => {
-        if (res.status < 200 || res.status >= 300) {
-            throw new Error(res.statusText);
+    .then(response => {
+        if (response.status < 200 || response.status >= 300) {
+            throw new Error(response.statusText);
         }
-        const { accessToken, expirationTime } = res.data.accessTokenDetails;
+        return response;
+    })
+    .then(({ data: { accessTokenDetails } }) => {
+        const { accessToken, expirationTime } = accessTokenDetails;
         
-        getCompaniesData(accessToken);
+        // getCompaniesData(accessToken);
         localStorage.setItem('token', accessToken);
         localStorage.setItem('tokenExpirationTime', expirationTime);
     });
 }
 
 
-const getCompaniesData = (accessToken) => {
-    return axios({
-        method: 'get',
-        url: 'https://api.insideview.com/api/v1/companies?name=1&website=1&ticker=1',
-        headers: {
-            accessToken,
-        }
-    })
-    .then(res => res.data.companies);
-};
+// const getCompaniesData = (accessToken) => {
+//     return axios({
+//         method: 'get',
+//         url: 'https://api.insideview.com/api/v1/companies?name=1&website=1&ticker=1',
+//         headers: {
+//             accessToken,
+//         }
+//     })
+//     .then(res => res.data.companies);
+// };
 
 
-export const deleteAccessToken = () => {
-    localStorage.removeItem('username');
-    localStorage.removeItem('token');
-    localStorage.removeItem('tokenExpirationTime');
-};
+// export const deleteAccessToken = () => {
+//     localStorage.removeItem('username');
+//     localStorage.removeItem('token');
+//     localStorage.removeItem('tokenExpirationTime');
+// };
