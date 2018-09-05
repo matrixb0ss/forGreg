@@ -1,7 +1,5 @@
 import { stringify } from 'query-string';
-import {
-    GET_LIST,
-} from 'react-admin';
+import { GET_LIST } from 'react-admin';
 
 const API_URL = `https://api.insideview.com/api/v1`;
 const accessToken = localStorage.getItem('token');
@@ -12,13 +10,18 @@ const options = {
     }),
 };
 
-const getQuery = (resource) => {
-    const companyQuery = { name: 1 };
-    const contactsQuery = { fullName: 'A' };
+const getQuery = (resource, params) => {
+    const { page, perPage } = params.pagination;
+    const { field, order } = params.sort;
+    const query = {
+        sort: JSON.stringify([field, order]),
+        range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
+        page: `${page}`,
+        filter: JSON.stringify(params.filter),
+    };
 
-    let query = {};
-    if (resource === 'companies') query = companyQuery;
-    if (resource === 'contacts') query = contactsQuery;
+    if (resource === 'companies') query.name = 'cs';
+    if (resource === 'contacts') query.fullName = 'J';
     return query;
 }
 
@@ -40,12 +43,12 @@ const transformData = (json, resource) => {
 }
 
 const fetchData = (type, resource, url, options) => {
-    let headers;
+    // let headers;
     return fetch(url, options)
         .then(res => {
-            res.headers.append( 'Access-Control-Expose-Headers', 'Content-Range')
-            res.headers.append('Content-Range','bytes : 0-9/*')
-            headers = res.headers;
+            // res.headers.append( 'Access-Control-Expose-Headers', 'Content-Range')
+            // res.headers.append('Content-Range','bytes : 0-9/*')
+            // headers = res.headers;
             return res.json();
         })
         .then(json => {
@@ -55,14 +58,7 @@ const fetchData = (type, resource, url, options) => {
                 case GET_LIST: {
                     return {
                         data: result,
-                        total: 20,
-                        // total: parseInt(
-                        //     headers
-                        //         .get('content-range')
-                        //         .split('/')
-                        //         .pop(),
-                        //     10
-                        // ),
+                        total: 50,
                     };
                     break;
                 }
@@ -72,8 +68,8 @@ const fetchData = (type, resource, url, options) => {
         });
 }
 
-const getURL = (type, resource) => {
-    const query = getQuery(resource);
+const getURL = (type, resource, params) => {
+    const query = getQuery(resource, params);
 
     switch (type) {
         case GET_LIST: {
@@ -85,8 +81,8 @@ const getURL = (type, resource) => {
     }
 }
 
-export default (type, resource) => {
-    const url = getURL(type, resource);
+export default (type, resource, params) => {
+    const url = getURL(type, resource, params);
 
     return fetchData(type, resource, url, options);
 

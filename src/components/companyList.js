@@ -1,11 +1,18 @@
 import React from 'react';
-import { List, SimpleList } from 'react-admin';
+import { List, SimpleList, TextField, Datagrid, Filter, TextInput } from 'react-admin';
+
+
+const CompaniesFilter = (props) => (
+    <Filter {...props}>
+        <TextInput label="Search" source="q" alwaysOn />
+    </Filter>
+);
 
 export default (props) => (
-    <List {...props} title="Search result:">
+    <List {...props} title="Companies list:" filters={<CompaniesFilter />}>
         <SimpleList
-            primaryText={record => record.name}
+            primaryText={record => record.name} 
             onClick={() => console.log('1') }
-        />
+        /> 
     </List>
 );
