@@ -1,12 +1,11 @@
 import React from 'react';
-import { List, Datagrid, TextField } from 'react-admin';
-
-
+import { List, SimpleList } from 'react-admin';
 
 export default (props) => (
-    <List {...props}>
-        <Datagrid>
-            <TextField source="name" />
-        </Datagrid>
+    <List {...props} title="Search result:">
+        <SimpleList
+            primaryText={record => record.name}
+            onClick={() => console.log('1') }
+        />
     </List>
 );

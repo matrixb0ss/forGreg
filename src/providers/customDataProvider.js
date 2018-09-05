@@ -5,6 +5,12 @@ import {
 
 const API_URL = `https://api.insideview.com/api/v1`;
 const accessToken = localStorage.getItem('token');
+const options = { 
+    headers : new Headers({
+        Accept: 'application/json',
+        accessToken,
+    }),
+};
 
 const getQuery = (resource) => {
     const companyQuery = { name: 1 };
@@ -17,43 +23,23 @@ const getQuery = (resource) => {
 }
 
 const transformData = (json, resource) => {
-    console.log(resource);
-    let data;
     switch (resource) {
         case 'companies': {
-            data = json.companies;
             json.companies.forEach(c => c.id = c.companyId);
-            return data;
+            return json.companies;
             break;
         }
         case 'contacts': {
-            data = json.contacts;
-            data = json.contacts.forEach(c => c.id = c.contactId);
-            return data;
-            break;
-        }
-    }
-}
-
-export default (type, resource, params) => {
-    let url = '';
-    const query = getQuery(resource);
-    const options = { 
-        headers : new Headers({
-            Accept: 'application/json',
-            accessToken,
-        }),
-    };
-
-    switch (type) {
-        case GET_LIST: {
-            url = `${API_URL}/${resource}?${stringify(query)}`;
+            json.contacts.forEach(c => c.id = c.contactId);
+            return json.contacts;
             break;
         }
         default:
-            throw new Error(`Unsupported Data Provider request type ${type}`);
+            return json;
     }
+}
 
+const fetchData = (type, resource, url, options) => {
     let headers;
     return fetch(url, options)
         .then(res => {
@@ -64,19 +50,19 @@ export default (type, resource, params) => {
         })
         .then(json => {
             const result = transformData(json, resource);
-            console.log(json);
-            console.log(result);
+            console.log(result, '<<<');
             switch (type) {
                 case GET_LIST: {
                     return {
                         data: result,
-                        total: parseInt(
-                            headers
-                                .get('content-range')
-                                .split('/')
-                                .pop(),
-                            10
-                        ),
+                        total: 20,
+                        // total: parseInt(
+                        //     headers
+                        //         .get('content-range')
+                        //         .split('/')
+                        //         .pop(),
+                        //     10
+                        // ),
                     };
                     break;
                 }
@@ -84,5 +70,24 @@ export default (type, resource, params) => {
                     return { data: json.companies };
             }
         });
+}
+
+const getURL = (type, resource) => {
+    const query = getQuery(resource);
+
+    switch (type) {
+        case GET_LIST: {
+            return `${API_URL}/${resource}?${stringify(query)}`;
+            break;
+        }
+        default:
+            throw new Error(`Unsupported Data Provider request type ${type}`);
+    }
+}
+
+export default (type, resource) => {
+    const url = getURL(type, resource);
+
+    return fetchData(type, resource, url, options);
 
 };
