@@ -1,10 +1,10 @@
 import React from 'react';
 import { List, TextField, Datagrid, ShowButton, EditButton } from 'react-admin';
 import { Show, SimpleShowLayout, Edit, Create, DisabledInput, LongTextInput, SimpleForm, TextInput } from 'react-admin';
-
+import { SearchFilter } from './filter';
 
 export const CompanyList = (props) => (
-    <List {...props}>
+    <List {...props} filters={<SearchFilter />}>
         <Datagrid>
             <TextField source="name" />
             <ShowButton />

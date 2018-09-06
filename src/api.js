@@ -30,29 +30,14 @@ export const getAccessToken = () => {
     .then(({ data: { accessTokenDetails } }) => {
         const { accessToken, expirationTime } = accessTokenDetails;
         
-        // getCompanies(accessToken);
         localStorage.setItem('token', accessToken);
         localStorage.setItem('tokenExpirationTime', expirationTime);
     });
 }
 
 
-
-// const getCompanies = (accessToken) => {
-//     return axios({
-//         method: 'get',
-//         url: 'https://api.insideview.com/api/v1/companies?name=1&website=1&ticker=1',
-//         headers: {
-//             accessToken,
-//         }
-//     })
-//     .then(res => res)
-//     .then(res => console.log(res.data.companies));
-// };
-
-
-// export const deleteAccessToken = () => {
-//     localStorage.removeItem('username');
-//     localStorage.removeItem('token');
-//     localStorage.removeItem('tokenExpirationTime');
-// };
+export const deleteAccessToken = () => {
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenExpirationTime');
+};

@@ -11,13 +11,14 @@ const options = {
 };
 
 const getQuery = (resource, params) => {
+    console.log(params.filter);
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
     const query = {
         sort: JSON.stringify([field, order]),
         range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
         page: `${page}`,
-        filter: JSON.stringify(params.filter),
+        filter: JSON.stringify(params.filter.q),
     };
 
     if (resource === 'companies') query.name = 'cs';
