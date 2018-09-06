@@ -59,7 +59,7 @@ const transformData = (json, resource) => {
             return {...json, id: json.contactId}
         }
         default:
-            return json;
+            return json.contacts;
     }
 }
 
