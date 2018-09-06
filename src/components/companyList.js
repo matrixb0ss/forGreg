@@ -2,12 +2,32 @@ import React from 'react';
 import { List, TextField, Datagrid, ShowButton, EditButton } from 'react-admin';
 import { Show, SimpleShowLayout, Edit, Create, DisabledInput, LongTextInput, SimpleForm, TextInput } from 'react-admin';
 
+
+export const CompanyList = (props) => (
+    <List {...props}>
+        <Datagrid>
+            <TextField source="name" />
+            <ShowButton />
+            <EditButton />
+        </Datagrid>
+    </List>
+);
+
 export const CompanyShow = (props) => (
-    console.log(props, "????"),
     <Show {...props}>
         <SimpleShowLayout>
             <TextField source="city" />
+            <TextField source="companyBlogProfile" />
+            <TextField source="companyFacebookProfile" />
             <TextField source="state" />
+            <TextField source="companyStatus" />
+            <TextField source="country" />
+            <TextField source="fax" />
+            <TextField source="industry" />
+            <TextField source="name" />
+            <TextField source="phone" />
+            <TextField source="street" />
+            <TextField source="zip" />
         </SimpleShowLayout>
     </Show>
 );
@@ -30,14 +50,4 @@ export const CompanyCreate = (props) => (
             <LongTextInput source="body" />
         </SimpleForm>
     </Create>
-);
-
-export const CompanyList = (props) => (
-    <List {...props}>
-        <Datagrid>
-            <TextField source="name" />
-            <ShowButton />
-            <EditButton />
-        </Datagrid>
-    </List>
 );

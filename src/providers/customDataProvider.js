@@ -21,19 +21,35 @@ const getQuery = (resource, params) => {
     };
 
     if (resource === 'companies') query.name = 'cs';
-    if (resource === 'contacts') query.fullName = 'J';
+    if (resource === 'contacts') query.fullName = 'G';
     return query;
+}
+
+const getURL = (type, resource, params) => {
+    switch (type) {
+        case GET_LIST: {
+            const query = getQuery(resource, params);
+            return `${API_URL}/${resource}?${stringify(query)}`;
+        }
+        case GET_ONE: {
+            let single = '';
+            if (resource === 'companies') single = 'company'
+            if (resource === 'contacts') single = 'contact'
+            return `${API_URL}/${single}/${params.id}`;
+        }
+        default:
+            throw new Error(`Unsupported Data Provider request type ${type}`);
+    }
 }
 
 const transformData = (json, resource) => {
     switch (resource) {
         case 'companies': {
-            if(json.companies) {
+            if (json.companies) {
                 json.companies.forEach(c => c.id = c.companyId);
                 return json.companies;
             }
             return {...json, id: json.companyId}
-            break;
         }
         case 'contacts': {
             if(json.contacts) {
@@ -41,7 +57,6 @@ const transformData = (json, resource) => {
                 return json.contacts;
             }
             return {...json, id: json.contactId}
-            break;
         }
         default:
             return json;
@@ -49,21 +64,13 @@ const transformData = (json, resource) => {
 }
 
 const fetchData = (type, resource, url, options, params) => {
-    // options.body = params.pagination;
-    console.log(options, 'options');
-    // let headers;
     return fetch(url, options)
         .then(res => {
-            console.log(res, '------------------------');
-            // res.headers.append( 'Access-Control-Expose-Headers', 'Content-Range')
-            // res.headers.append('Content-Range','bytes : 0-9/*')
-            // headers = res.headers;
             return res.json();
         })
         .then(json => {
-            console.log(json, '!!!!!!!!!!');
             const result = transformData(json, resource);
-            console.log(result, '<<<');
+            console.log(result);
             switch (type) {
                 case GET_LIST: {
                     return {
@@ -75,40 +82,20 @@ const fetchData = (type, resource, url, options, params) => {
                 case GET_ONE: {
                     return {
                         data: result,
-                        total: 50,
+                        total: 100,
                     };
                     break;
                 }
                 default:
-                    return { data: json.companies };
+                    return { data: json };
             }
         })
-        .catch(err => console.log(err || err.message, 'ERROR'))
+        .catch(err => console.warn(err || err.message));
 }
 
-const getURL = (type, resource, params) => {
-    
-    switch (type) {
-        case GET_LIST: {
-            const query = getQuery(resource, params);
-            console.log(type, 'GET_lissrsrsrsrs');
-            return `${API_URL}/${resource}?${stringify(query)}`;
-        }
-        case GET_ONE: {
-            console.log(type, '555555555');
-            return `${API_URL}/company/${params.id}`;
-        }
-        default:
-            throw new Error(`Unsupported Data Provider request type ${type}`);
-    }
-}
 
 export default (type, resource, params) => {
-    console.log(type, 'TYPE');
-    console.log(params, 'params');
     const url = getURL(type, resource, params);
-    console.log(url, 'URL<<<<<<<<<<');
 
     return fetchData(type, resource, url, options, params);
-
 };
