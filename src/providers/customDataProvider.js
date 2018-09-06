@@ -42,7 +42,9 @@ const transformData = (json, resource) => {
     }
 }
 
-const fetchData = (type, resource, url, options) => {
+const fetchData = (type, resource, url, options, params) => {
+    // options.body = params.pagination;
+    console.log(options, 'options');
     // let headers;
     return fetch(url, options)
         .then(res => {
@@ -59,6 +61,8 @@ const fetchData = (type, resource, url, options) => {
                     return {
                         data: result,
                         total: 50,
+                        page: 1,
+                        pagination: 1,
                     };
                     break;
                 }
@@ -82,8 +86,9 @@ const getURL = (type, resource, params) => {
 }
 
 export default (type, resource, params) => {
+    console.log(params, 'params');
     const url = getURL(type, resource, params);
 
-    return fetchData(type, resource, url, options);
+    return fetchData(type, resource, url, options, params);
 
 };
