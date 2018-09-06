@@ -11,14 +11,13 @@ const options = {
 };
 
 const getQuery = (resource, params) => {
-    console.log(params.filter);
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
     const query = {
         sort: JSON.stringify([field, order]),
         range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
         page: `${page}`,
-        filter: JSON.stringify(params.filter.q),
+        filter: JSON.stringify(params.filter),
     };
 
     if (resource === 'companies') query.name = 'cs';
@@ -71,21 +70,18 @@ const fetchData = (type, resource, url, options, params) => {
         })
         .then(json => {
             const result = transformData(json, resource);
-            console.log(result);
             switch (type) {
                 case GET_LIST: {
                     return {
                         data: result,
-                        total: 50,
+                        total: 100,
                     };
-                    break;
                 }
                 case GET_ONE: {
                     return {
                         data: result,
                         total: 100,
                     };
-                    break;
                 }
                 default:
                     return { data: json };
