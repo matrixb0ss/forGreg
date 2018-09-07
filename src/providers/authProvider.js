@@ -5,9 +5,8 @@ export default async (type, params) => {
     if (type === AUTH_LOGIN) {
         const { username } = params;
         localStorage.setItem('username', username);
-        getAccessToken();
 
-        return Promise.resolve();
+        return getAccessToken();
     }
 
     if (type === AUTH_LOGOUT) {

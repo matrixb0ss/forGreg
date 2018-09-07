@@ -2,13 +2,6 @@ import { stringify } from 'query-string';
 import { GET_LIST, GET_ONE } from 'react-admin';
 
 const API_URL = `https://api.insideview.com/api/v1`;
-const accessToken = localStorage.getItem('token');
-const options = { 
-    headers : new Headers({
-        Accept: 'application/json',
-        accessToken,
-    }),
-};
 
 const getQuery = (resource, params) => {
     console.log(params.filter);
@@ -64,7 +57,14 @@ const transformData = (json, resource) => {
     }
 }
 
-const fetchData = (type, resource, url, options, params) => {
+const fetchData = (type, resource, url, params) => {
+    const accessToken = localStorage.getItem('token');
+    const options = { 
+        headers : new Headers({
+            Accept: 'application/json',
+            accessToken,
+        }),
+    };
     return fetch(url, options)
         .then(res => {
             return res.json();
@@ -97,6 +97,5 @@ const fetchData = (type, resource, url, options, params) => {
 
 export default (type, resource, params) => {
     const url = getURL(type, resource, params);
-
-    return fetchData(type, resource, url, options, params);
+    return fetchData(type, resource, url, params);
 };
