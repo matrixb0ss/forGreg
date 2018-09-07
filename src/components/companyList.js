@@ -1,6 +1,6 @@
 import React from 'react';
-import { List, TextField, Datagrid, ShowButton, EditButton } from 'react-admin';
-import { Show, SimpleShowLayout, Edit, Create, DisabledInput, LongTextInput, SimpleForm, TextInput } from 'react-admin';
+import { List, TextField, Datagrid, ShowButton } from 'react-admin';
+import { Show, SimpleShowLayout } from 'react-admin';
 import { SearchFilter } from './filter';
 
 export const CompanyList = (props) => (
@@ -8,7 +8,6 @@ export const CompanyList = (props) => (
         <Datagrid>
             <TextField source="name" />
             <ShowButton />
-            <EditButton />
         </Datagrid>
     </List>
 );
@@ -30,24 +29,4 @@ export const CompanyShow = (props) => (
             <TextField source="zip" />
         </SimpleShowLayout>
     </Show>
-);
-
-
-export const CompanyEdit = (props) => (
-    <Edit {...props}>
-        <SimpleForm>
-            <DisabledInput source="id" />
-            <TextInput source="title" />
-            <LongTextInput source="body" />
-        </SimpleForm>
-    </Edit>
-);
-
-export const CompanyCreate = (props) => (
-    <Create {...props}>
-        <SimpleForm>
-            <TextInput source="title" />
-            <LongTextInput source="body" />
-        </SimpleForm>
-    </Create>
 );

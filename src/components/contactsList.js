@@ -1,15 +1,14 @@
 import React from 'react';
-import { List, TextField, Datagrid, ShowButton, EditButton } from 'react-admin';
-import { Show, SimpleShowLayout, Edit, Create, DisabledInput, LongTextInput, SimpleForm, TextInput } from 'react-admin';
+import { List, TextField, Datagrid, ShowButton, Show, SimpleShowLayout } from 'react-admin';
 import { SearchFilter } from './filter';
 
 export const ContactList = (props) => (
     <List {...props} filters={<SearchFilter />}>
         <Datagrid>
+            <TextField source="firstName" />
             <TextField source="lastName" />
             <TextField source="companyName" />
             <ShowButton />
-            <EditButton />
         </Datagrid>
     </List>
 );
@@ -27,24 +26,4 @@ export const ContactShow = (props) => (
             <TextField source="phone" />
         </SimpleShowLayout>
     </Show>
-);
-
-
-export const ContactEdit = (props) => (
-    <Edit {...props}>
-        <SimpleForm>
-            <DisabledInput source="id" />
-            <TextInput source="title" />
-            <LongTextInput source="body" />
-        </SimpleForm>
-    </Edit>
-);
-
-export const ContactCreate = (props) => (
-    <Create {...props}>
-        <SimpleForm>
-            <TextInput source="title" />
-            <LongTextInput source="body" />
-        </SimpleForm>
-    </Create>
 );
