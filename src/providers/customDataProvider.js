@@ -1,5 +1,6 @@
 import { stringify } from 'query-string';
 import { GET_LIST, GET_ONE } from 'react-admin';
+import _ from 'lodash';
 
 const API_URL = `https://api.insideview.com/api/v1`;
 
@@ -13,8 +14,17 @@ const getQuery = (resource, params) => {
         filter: JSON.stringify(params.filter),
     };
 
-    if (resource === 'companies') query.name = 'cs';
-    if (resource === 'contacts') query.fullName = 'G';
+    if (resource === 'companies') {
+        query.name = 'cs';
+        const filterIsEmpty = _.isEmpty(params.filter)
+        if (!filterIsEmpty) query.name = JSON.stringify(params.filter);
+    }
+
+    if (resource === 'contacts') {
+        query.fullName = 'G';
+        const filterIsEmpty = _.isEmpty(params.filter)
+        if (!filterIsEmpty) query.fullName = JSON.stringify(params.filter);
+    }
     return query;
 }
 
