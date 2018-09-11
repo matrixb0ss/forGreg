@@ -2,8 +2,10 @@ import React from 'react';
 import { Admin, Resource } from 'react-admin';
 
 import Dashboard from './components/Dashboard';
-import { CompanyShow, CompanyList } from './components/companyList';
-import { ContactShow, ContactList } from './components/contactsList';
+import { CompanyList } from './components/companyList';
+import { CompanyShow } from './components/companyShow';
+import { ContactList } from './components/contactsList';
+import { ContactShow } from './components/contactShow';
 
 import authProvider from './providers/authProvider';
 import customDataProvider from './providers/customDataProvider';
