@@ -1,5 +1,5 @@
 *
-For testing purposes
+For testing purposes using CORS as a proxy server: https://cors-anywhere.herokuapp.com/
 *
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
