@@ -80,17 +80,17 @@ const fetchData = (type, resource, url, params) => {
         })
         .then(json => {
             const result = transformData(json, resource);
+            const totalResults = (json.totalResults < 100000) ? json.totalResults : 100000;  
             switch (type) {
                 case GET_LIST: {
                     return {
                         data: result,
-                        total: 100,
+                        total: totalResults,
                     };
                 }
                 case GET_ONE: {
                     return {
                         data: result,
-                        total: 100,
                     };
                 }
                 default:
