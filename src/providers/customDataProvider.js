@@ -11,19 +11,15 @@ const getQuery = (resource, params) => {
         sort: JSON.stringify([field, order]),
         range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
         page: `${page}`,
-        filter: JSON.stringify(params.filter),
     };
+    const filterIsEmpty = _.isEmpty(params.filter)
 
     if (resource === 'companies') {
-        query.name = 'cs';
-        const filterIsEmpty = _.isEmpty(params.filter)
-        if (!filterIsEmpty) query.name = JSON.stringify(params.filter);
+        query.name = filterIsEmpty ? 's' : JSON.stringify(params.filter.search);
     }
 
     if (resource === 'contacts') {
-        query.fullName = 'G';
-        const filterIsEmpty = _.isEmpty(params.filter)
-        if (!filterIsEmpty) query.fullName = JSON.stringify(params.filter);
+        query.fullName = filterIsEmpty ? 'G' : JSON.stringify(params.filter.search);
     }
     return query;
 }
