@@ -22,6 +22,7 @@ class CompaniesSearchForm extends Component {
         return (
             <div style={{ textAlign: 'center' }}>
                 <TextField
+                    required={true}
                     label="Company Name"
                     margin="normal"
                     onChange={(e) => this.onTextChange(e)}

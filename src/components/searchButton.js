@@ -25,6 +25,7 @@ class SearchButton extends Component {
   }
   
   fetchData = (companyName) => {
+    if (!companyName) return null; 
     const accessToken = localStorage.getItem('token');
     return axios({ 
         method: 'post',
