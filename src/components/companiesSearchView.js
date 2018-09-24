@@ -25,7 +25,6 @@ class CompanySearchView extends Component {
     renderCompaniesTable = () => {
         const { companies, total } = this.state;
         const totalResults = (total < 100000) ? total : 100000;
-        console.log(companies);
         return companies.length === 0
         ? null
         : (

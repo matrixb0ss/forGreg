@@ -39,7 +39,7 @@ class SimpleTable extends Component {
     
   render () {
     const { classes } = this.props;
-    const { companies, totalResults } = this.state;
+    const { companies } = this.state;
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
