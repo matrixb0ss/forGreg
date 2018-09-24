@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import qs from 'qs';
 
 const API_URL = `https://api.insideview.com/api/v1/target/companies`;
 
@@ -25,14 +26,13 @@ class SearchButton extends Component {
   }
   
   fetchData = (companyName) => {
+    const data = qs.stringify({ companyName });
     if (!companyName) return null; 
     const accessToken = localStorage.getItem('token');
     return axios({ 
         method: 'post',
         url: API_URL,
-        data: {
-            companyName,
-        },
+        data,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             accessToken
