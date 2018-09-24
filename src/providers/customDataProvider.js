@@ -28,10 +28,10 @@ const getQuery = (resource, params) => {
 const getURL = (type, resource, params) => {
     switch (type) {
         case GET_LIST: {
-            if (resource === 'companies search form') {
+            if (resource === 'companies-search-form') {
                 return `${API_URL}/target/companies`;
             }
-            if (resource === 'contacts search form') {
+            if (resource === 'contacts-search-form') {
                 return `${API_URL}/target/contacts`;
             }
             const query = getQuery(resource, params);
@@ -106,42 +106,43 @@ const fetchData = (type, resource, url) => {
 }
 
 const isRequestPOST = (resource) => {
-    return (resource === 'companies search form' || resource === 'contacts search form')
+    return (resource === 'companies-search-form' || resource === 'contacts-search-form')
 }
 
 const fetchByFilters = (url, resource, params) => {
-    const accessToken = localStorage.getItem('token');
-    const companyName = params.filter.companyName || '';
-    return axios({ 
-        method: 'post',
-        url,
-        data: {
-            companyName,
-        },
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            accessToken
-        }
-    })
-    .then(res => {
-        if (res.status < 200 || res.status >= 300) {
-            throw new Error(res.statusText);
-        }
-        console.log(res);
-        return res.data;
-    })
-    .then(json => {
-        const totalResults = (json.totalResults < 100000) ? json.totalResults : 100000;  
-        return {
-            data: json.companies,
-            total: totalResults,
-        };
-    });
+    // const accessToken = localStorage.getItem('token');
+    // const companyName = params.filter.companyName || '';
+    // return axios({ 
+    //     method: 'post',
+    //     url,
+    //     data: {
+    //         companyName,
+    //     },
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded',
+    //         accessToken
+    //     }
+    // })
+    // .then(res => {
+    //     if (res.status < 200 || res.status >= 300) {
+    //         throw new Error(res.statusText);
+    //     }
+    //     console.log(res);
+    //     return res.data;
+    // })
+    // .then(json => {
+    //     const totalResults = (json.totalResults < 100000) ? json.totalResults : 100000;  
+    //     return {
+    //         data: json.companies,
+    //         total: totalResults,
+    //     };
+    // });
 }
 
 export default (type, resource, params) => {
     const url = getURL(type, resource, params);
-    return isRequestPOST(resource)
-    ? fetchByFilters(url, resource, params)
-    : fetchData(type, resource, url, params);  
+    // return isRequestPOST(resource)
+    // ? fetchByFilters(url, resource, params)
+    // : fetchData(type, resource, url, params);  
+    return fetchData(type, resource, url, params);  
 };
