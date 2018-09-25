@@ -62,7 +62,7 @@ class SimpleTable extends Component {
     const companyName = name.replace(/\s/g,'');
     const { classes } = this.props;
     return (
-      <Link to={`/companies-search-form/${companyName}`}>
+      <Link to={`/show-companies-details/${companyName}`}>
         <Button
           variant="outlined"
           className={classes.button}
@@ -72,12 +72,6 @@ class SimpleTable extends Component {
         </Button>
       </Link>
     )
-  }
-
-  Test = () => {
-    return <div>
-      hi
-    </div>
   }
     
   render () {
@@ -111,7 +105,6 @@ class SimpleTable extends Component {
           </TableBody>
         </Table>
       </Paper>
-
     )
   }
 }
