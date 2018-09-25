@@ -8,7 +8,7 @@ class ContactsSearchForm extends Component {
         super(props);
         this.state = {
             companyName: '',
-            cities: '',
+            cities: [],
         }
     }
     
@@ -23,7 +23,6 @@ class ContactsSearchForm extends Component {
     }
 
     isAllParametersEmpty = (companyName, cities) => {
-        console.log(companyName, cities);
         return _.isEmpty(companyName) && _.isEmpty(cities)
         ? null
         : {
