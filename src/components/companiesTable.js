@@ -7,6 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -16,6 +18,10 @@ const styles = theme => ({
   },
   table: {
     minWidth: 700,
+  },
+  button: {
+    margin: theme.spacing.unit,
+    marginLeft: 50,
   },
 });
 
@@ -36,6 +42,43 @@ class SimpleTable extends Component {
       totalResults
     })
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps === this.props) return null;
+    const { companies, totalResults } = nextProps;
+    this.setState({
+      companies,
+      totalResults
+    })
+  }
+
+  showCompaniesDetails = () => {
+    return (
+        <Link to='/companyDetail'></Link>
+    )
+  }
+
+  renderShowButton = (name) => {
+    const companyName = name.replace(/\s/g,'');
+    const { classes } = this.props;
+    return (
+      <Link to={`/companies-search-form/${companyName}`}>
+        <Button
+          variant="outlined"
+          className={classes.button}
+          onClick={this.showCompaniesDetails}
+        >
+          Show Details
+        </Button>
+      </Link>
+    )
+  }
+
+  Test = () => {
+    return <div>
+      hi
+    </div>
+  }
     
   render () {
     const { classes } = this.props;
@@ -52,21 +95,23 @@ class SimpleTable extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {companies.map(company => {
+            {companies.map((company, index) => {
               return (
-                <TableRow key={company.zip}>
+                <TableRow key={index}>
                   <TableCell component="th" scope="row">
                     {company.name}
                   </TableCell>
                   <TableCell numeric>{company.country}</TableCell>
                   <TableCell numeric>{company.state}</TableCell>
                   <TableCell numeric>{company.city}</TableCell>
+                  <TableCell> { this.renderShowButton(company.name) } </TableCell>
                 </TableRow>
               );
             })}
           </TableBody>
         </Table>
       </Paper>
+
     )
   }
 }

@@ -25,9 +25,9 @@ class SearchButton extends Component {
       }
   }
   
-  fetchData = (companyName) => {
-    const data = qs.stringify({ companyName });
-    if (!companyName) return null; 
+  fetchData = (params) => {
+    const data = qs.stringify(params);
+    if (!params) return null; 
     const accessToken = localStorage.getItem('token');
     return axios({ 
         method: 'post',
@@ -50,13 +50,13 @@ class SearchButton extends Component {
   }
 
   render () {
-      const { classes, companyName } = this.props;
+      const { classes, params } = this.props;
       return (
         <div>
           <Button
             variant="outlined"
             className={classes.button}
-            onClick={() => this.fetchData(companyName)}
+            onClick={() => this.fetchData(params)}
           >
             Search
           </Button>
