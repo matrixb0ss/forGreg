@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import SearchButton from './companiesSearchButton' 
+import SearchButton from './companiesSearchButton'
 import _ from 'lodash'
 
 class CompaniesSearchForm extends Component {
@@ -59,9 +59,10 @@ class CompaniesSearchForm extends Component {
 const styles = {
     formWrapper: {
         display: 'flex',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
+        marginTop: 10
     },
 }
 
