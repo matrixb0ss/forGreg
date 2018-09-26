@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import qs from 'qs';
 
-const API_URL = `https://api.insideview.com/api/v1/target/contacts`;
+const API_URL = `https://api.insideview.com/api/v1/target/companies`;
 
 
 const SearchButton = (props) => {
@@ -28,22 +28,22 @@ const fetchData = (props) => {
   if (!props.params) return null;
   const accessToken = localStorage.getItem('token');
   return axios({
-      method: 'post',
-      url: API_URL,
-      data,
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          accessToken
-      }
+    method: 'post',
+    url: API_URL,
+    data,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      accessToken
+    }
   })
   .then(res => {
-      if (res.status < 200 || res.status >= 300) {
-          throw new Error(res.statusText);
-      }
-      return res.data;
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error(res.statusText);
+    }
+    return res.data;
   })
   .then(json => {
-    return props.getContacts(json);
+    return props.getCompanies(json);
   });
 }
 

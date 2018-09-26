@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import SearchButton from './searchButton' 
+import SearchButton from './companiesSearchButton' 
 import _ from 'lodash'
 
 class CompaniesSearchForm extends Component {
@@ -11,7 +11,7 @@ class CompaniesSearchForm extends Component {
             cities: '',
         }
     }
-    
+
     onCompanyChange = (e) => {
         const companyName = e.target && e.target.value;
         this.setState({ companyName });
@@ -29,7 +29,7 @@ class CompaniesSearchForm extends Component {
             companyName,
             cities
         }
-    } 
+    }
 
     render () {
         const { companyName, cities } = this.state;

@@ -16,8 +16,8 @@ const App = () => (
     <Admin authProvider={authProvider} dataProvider={customDataProvider} >
         <Resource name="companies" list={CompanyList} show={CompanyShow} />
         <Resource name="contacts" list={ContactList} show={ContactShow} />
-        <Resource name="companies-search-form" options={{ label: 'Search for companies' }} list={CompanySearchView} />
-        <Resource name="contacts-search-form" options={{ label: 'Search for contacts' }} list={ContactsSearchView} />
+        <Resource name="companies-search-form" options={{ label: 'Find Companies Form' }} list={CompanySearchView} />
+        <Resource name="contacts-search-form" options={{ label: 'Find Contacts Form' }} list={ContactsSearchView} />
     </Admin>
 );
 
