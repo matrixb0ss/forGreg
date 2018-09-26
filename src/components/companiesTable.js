@@ -10,31 +10,16 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-  button: {
-    margin: theme.spacing.unit,
-    marginLeft: 50,
-  },
-});
-
 
 class SimpleTable extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        companies: [],
-        totalResults: ''
-      }
+    super(props);
+    this.state = {
+      companies: [],
+      totalResults: ''
+    }
   }
-  
+
   componentWillMount() {
     const { companies, totalResults } = this.props;
     this.setState({
@@ -54,7 +39,7 @@ class SimpleTable extends Component {
 
   showCompaniesDetails = () => {
     return (
-        <Link to='/companyDetail'></Link>
+      <Link to='/companyDetail'></Link>
     )
   }
 
@@ -73,7 +58,7 @@ class SimpleTable extends Component {
       </Link>
     )
   }
-    
+
   render () {
     const { classes } = this.props;
     const { companies } = this.state;
@@ -83,21 +68,19 @@ class SimpleTable extends Component {
           <TableHead>
             <TableRow>
               <TableCell>Company Name</TableCell>
-              <TableCell numeric>Country</TableCell>
-              <TableCell numeric>State</TableCell>
-              <TableCell numeric>City</TableCell>
+              <TableCell>Country</TableCell>
+              <TableCell>State</TableCell>
+              <TableCell>City</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {companies.map((company, index) => {
               return (
                 <TableRow key={index}>
-                  <TableCell component="th" scope="row">
-                    {company.name}
-                  </TableCell>
-                  <TableCell numeric>{company.country}</TableCell>
-                  <TableCell numeric>{company.state}</TableCell>
-                  <TableCell numeric>{company.city}</TableCell>
+                  <TableCell component="th" scope="row">{company.name}</TableCell>
+                  <TableCell>{company.country}</TableCell>
+                  <TableCell>{company.state}</TableCell>
+                  <TableCell>{company.city}</TableCell>
                   <TableCell> { this.renderShowButton(company.name) } </TableCell>
                 </TableRow>
               );
@@ -109,9 +92,23 @@ class SimpleTable extends Component {
   }
 }
 
+const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+  button: {
+    margin: theme.spacing.unit,
+    marginLeft: 50,
+  },
+});
+
 SimpleTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SimpleTable);
-

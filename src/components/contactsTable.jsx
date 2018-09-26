@@ -10,31 +10,16 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-  button: {
-    margin: theme.spacing.unit,
-    marginLeft: 50,
-  },
-});
-
 
 class ContactsTable extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        contacts: [],
-        totalResults: ''
-      }
+    super(props);
+    this.state = {
+      contacts: [],
+      totalResults: ''
+    }
   }
-  
+
   componentWillMount() {
     const { contacts, totalResults } = this.props;
     this.setState({
@@ -65,7 +50,7 @@ class ContactsTable extends Component {
       </Link>
     )
   }
-    
+
   render () {
     const { classes } = this.props;
     const { contacts } = this.state;
@@ -74,22 +59,20 @@ class ContactsTable extends Component {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell numeric>ID</TableCell>
               <TableCell>Company Name</TableCell>
               <TableCell>First Name</TableCell>
               <TableCell>Last Name</TableCell>
+              <TableCell>ID</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {contacts.map((contact) => {
               return (
                 <TableRow key={contact.id}>
-                  <TableCell component="th" scope="row">
-                    {contact.id}
-                  </TableCell>
-                  <TableCell numeric>{contact.companyName}</TableCell>
-                  <TableCell numeric>{contact.firstName}</TableCell>
-                  <TableCell numeric>{contact.lastName}</TableCell>
+                  <TableCell component="th" scope="row">{contact.companyName}</TableCell>
+                  <TableCell>{contact.firstName}</TableCell>
+                  <TableCell>{contact.lastName}</TableCell>
+                  <TableCell>{contact.id}</TableCell>
                   <TableCell> { this.renderShowButton(contact.id) } </TableCell>
                 </TableRow>
               );
@@ -101,9 +84,23 @@ class ContactsTable extends Component {
   }
 }
 
+const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+  button: {
+    margin: theme.spacing.unit,
+    marginLeft: 50,
+  },
+});
+
 ContactsTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ContactsTable);
-

@@ -4,9 +4,9 @@ import { SearchFilter } from './searchFilter';
 
 export const CompanyList = (props) => (
     <List {...props} filters={<SearchFilter />}>
-        <Datagrid>
-            <TextField source="name" />
-            <ShowButton />
-        </Datagrid>
+      <Datagrid>
+        <TextField source="name" />
+        <ShowButton />
+      </Datagrid>
     </List>
 );

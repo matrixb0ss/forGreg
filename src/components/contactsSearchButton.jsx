@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import qs from 'qs';
 
-const API_URL = `https://api.insideview.com/api/v1/target/contacts`;
 
+const API_URL = `https://api.insideview.com/api/v1/target/contacts`;
 
 const SearchButton = (props) => {
   const { classes } = props;
