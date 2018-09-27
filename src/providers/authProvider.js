@@ -1,5 +1,5 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'react-admin';
-import { getAccessToken, deleteAccessToken } from './../api'
+import { getAccessToken, deleteAccessToken } from './api'
 
 export default async (type, params) => {
   if (type === AUTH_LOGIN) {

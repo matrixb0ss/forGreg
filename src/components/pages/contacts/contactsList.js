@@ -3,6 +3,7 @@ import { List, TextField, Datagrid, ShowButton } from 'react-admin';
 import { SearchFilter } from '../../searchFilter';
 
 export const ContactList = (props) => (
+  console.log(props),
   <List {...props} filters={<SearchFilter />}>
     <Datagrid>
       <TextField source="firstName" />

@@ -4,7 +4,7 @@ import SearchButton from '../../buttons/companiesSearchButton'
 import _ from 'lodash'
 
 
-class CompaniesSearchForm extends Component {
+export default class CompaniesSearchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,16 +39,19 @@ class CompaniesSearchForm extends Component {
     return (
       <div style={styles.formWrapper}>
         <TextField
+          style={styles.textField}
           label="Company Name"
           margin="normal"
           onChange={(e) => this.onCompanyChange(e)}
         />
         <TextField
+          style={styles.textField}
           label="Cities (separated by coma)"
           margin="normal"
           onChange={(e) => this.onCountryChange(e)}
         />
         <SearchButton
+          style={styles.button}
           params={params}
           getCompanies={getCompanies}
         />
@@ -61,10 +64,13 @@ const styles = {
   formWrapper: {
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 10
+    margin: 10
+  },
+  textField: {
+    margin: '10px',
   },
 }
 
-export default CompaniesSearchForm;
+// export default CompaniesSearchForm;

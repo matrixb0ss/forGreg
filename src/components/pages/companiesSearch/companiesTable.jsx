@@ -45,8 +45,8 @@ class SimpleTable extends Component {
 
   renderShowButton = (name) => {
     const companyName = name.replace(/\s/g,'');
-    const { classes } = this.props;
-    return (
+    const { classes, renderShowButton } = this.props;
+    return renderShowButton && (
       <Link to={`/show-companies-details/${companyName}`}>
         <Button
           variant="outlined"

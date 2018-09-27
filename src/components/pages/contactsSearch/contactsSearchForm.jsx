@@ -39,11 +39,13 @@ class ContactsSearchForm extends Component {
     return (
       <div style={styles.formWrapper}>
         <TextField
+          style={styles.textField}
           label="Company Name"
           margin="normal"
           onChange={(e) => this.onCompanyChange(e)}
         />
         <TextField
+          style={styles.textField}
           label="Cities (separated by coma)"
           margin="normal"
           onChange={(e) => this.onCountryChange(e)}
@@ -61,9 +63,12 @@ const styles = {
   formWrapper: {
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 10
+    margin: 10
+  },
+  textField: {
+    margin: '10px',
   },
 }
 

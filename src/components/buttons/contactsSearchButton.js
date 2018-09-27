@@ -49,7 +49,7 @@ const fetchData = (props) => {
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit,
+    marginLeft: 20,
   },
   input: {
     display: 'none',

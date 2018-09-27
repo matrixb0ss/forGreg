@@ -4,6 +4,20 @@ import CompaniesSearchForm from './companiesSearchForm';
 import CompaniesTable from './companiesTable';
 
 
+const EMPTY_COMPANIES = [
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+];
+
+
 class CompanySearchView extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +25,16 @@ class CompanySearchView extends Component {
       companies: [],
       total: '',
     }
+  }
+
+  renderEmptyTable = () => {
+    return (
+      <CompaniesTable
+        companies={EMPTY_COMPANIES}
+        totalResults={10}
+        renderShowButton={false}
+      />
+    )
   }
 
   getCompanies = (json) => {
@@ -24,13 +48,15 @@ class CompanySearchView extends Component {
 
   renderCompaniesTable = () => {
     const { companies, total } = this.state;
+    console.log(companies);
     const totalResults = (total < 100000) ? total : 100000;
     return companies.length === 0
-    ? null
+    ? this.renderEmptyTable()
     : (
       <CompaniesTable
         companies={companies}
         totalResults={totalResults}
+        renderShowButton={true}
       />
     )
   }
