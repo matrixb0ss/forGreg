@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import SearchButton from './companiesSearchButton'
+import SearchButton from '../../buttons/companiesSearchButton'
 import _ from 'lodash'
+
 
 class CompaniesSearchForm extends Component {
   constructor(props) {

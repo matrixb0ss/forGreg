@@ -1,13 +1,13 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
 
-import { CompanyList } from './components/companyList';
-import { CompanyShow } from './components/companyShow';
-import { ContactList } from './components/contactsList';
-import { ContactShow } from './components/contactShow';
+import { CompanyList } from './components/pages/companies/companyList';
+import { CompanyShow } from './components/pages/companies/companyShow';
+import { ContactList } from './components/pages/contacts/contactsList';
+import { ContactShow } from './components/pages/contacts/contactShow';
 
-import CompanySearchView from './components/companiesSearchView';
-import ContactsSearchView from './components/contactsSearchView';
+import CompanySearchView from './components/pages/companiesSearch/companiesSearchView';
+import ContactsSearchView from './components/pages/contactsSearch/contactsSearchView';
 
 import authProvider from './providers/authProvider';
 import customDataProvider from './providers/customDataProvider';
