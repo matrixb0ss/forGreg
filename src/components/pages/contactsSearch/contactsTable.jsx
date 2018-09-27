@@ -38,8 +38,8 @@ class ContactsTable extends Component {
   }
 
   renderShowButton = (id) => {
-    const { classes } = this.props;
-    return (
+    const { classes, renderShowButton } = this.props;
+    return renderShowButton && (
       <Link to={`/show-contacts-details/${id}`}>
         <Button
           variant="outlined"

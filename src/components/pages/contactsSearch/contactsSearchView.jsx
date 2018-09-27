@@ -3,6 +3,18 @@ import PageTitle from './contactsPageTitle';
 import ContactsSearchForm from './contactsSearchForm';
 import ContactsTable from './contactsTable';
 
+const EMPTY_CONTACTS = [
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' '},
+];
 
 class ContactsSearchView extends Component {
   constructor(props) {
@@ -11,6 +23,16 @@ class ContactsSearchView extends Component {
       contacts: [],
       total: '',
     }
+  }
+
+  renderEmptyTable = () => {
+    return (
+      <ContactsTable
+        contacts={EMPTY_CONTACTS}
+        totalResults={10}
+        renderShowButton={false}
+      />
+    )
   }
 
   getContacts = (json) => {
@@ -26,11 +48,12 @@ class ContactsSearchView extends Component {
     const { contacts, total } = this.state;
     const totalResults = (total < 100000) ? total : 100000;
     return contacts.length === 0
-    ? null
+    ? this.renderEmptyTable()
     : (
       <ContactsTable
         contacts={contacts}
         totalResults={totalResults}
+        renderShowButton={true}
       />
     )
   }
