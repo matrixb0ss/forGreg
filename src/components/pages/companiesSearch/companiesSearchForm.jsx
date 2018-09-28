@@ -66,11 +66,10 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    margin: 10
+    margin: 10,
+    marginTop: 50
   },
   textField: {
     margin: '10px',
   },
-}
-
-// export default CompaniesSearchForm;
+};

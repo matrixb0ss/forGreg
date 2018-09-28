@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { List, TextField, Datagrid, ShowButton } from 'react-admin';
 import { SearchFilter } from '../../searchFilter';
 

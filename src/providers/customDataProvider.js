@@ -97,12 +97,7 @@ const fetchData = (type, resource, url) => {
     .catch(err => console.warn(err || err.message));
 }
 
-const emptyTable = () => {
-  return { data: [], total: 0 }
-}
-
 export default (type, resource, params) => {
   const url = getURL(type, resource, params);
   return fetchData(type, resource, url, params);
-  // return emptyTable();
 };

@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
 import PageTitle from './companiesPageTitle';
 import CompaniesSearchForm from './companiesSearchForm';
-import CompaniesTable from './companiesTable';
+import CompaniesTable from '../.././newTable';
 
 
 const EMPTY_COMPANIES = [
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
-  { name: ' ', country: ' ', state: ' ', city: ' '},
+  { name: ' ', country: ' ', state: ' ', city: ' ' },
+  { name: ' ', country: ' ', state: ' ', city: ' ' },
+  { name: ' ', country: ' ', state: ' ', city: ' ' },
+  { name: ' ', country: ' ', state: ' ', city: ' ' },
+  { name: ' ', country: ' ', state: ' ', city: ' ' },
 ];
-
 
 class CompanySearchView extends Component {
   constructor(props) {
@@ -30,8 +24,7 @@ class CompanySearchView extends Component {
   renderEmptyTable = () => {
     return (
       <CompaniesTable
-        companies={EMPTY_COMPANIES}
-        totalResults={10}
+        data={EMPTY_COMPANIES}
         renderShowButton={false}
       />
     )
@@ -48,13 +41,12 @@ class CompanySearchView extends Component {
 
   renderCompaniesTable = () => {
     const { companies, total } = this.state;
-    console.log(companies);
     const totalResults = (total < 100000) ? total : 100000;
     return companies.length === 0
     ? this.renderEmptyTable()
     : (
       <CompaniesTable
-        companies={companies}
+        data={companies}
         totalResults={totalResults}
         renderShowButton={true}
       />
@@ -63,7 +55,7 @@ class CompanySearchView extends Component {
 
   render () {
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div>
         <PageTitle />
         <CompaniesSearchForm
           getCompanies={this.getCompanies}

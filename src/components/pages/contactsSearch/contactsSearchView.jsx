@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PageTitle from './contactsPageTitle';
 import ContactsSearchForm from './contactsSearchForm';
-import ContactsTable from './contactsTable';
+import ContactsTable from '../.././newTable';
 
 const EMPTY_CONTACTS = [
   { name: ' ', country: ' ', state: ' ', city: ' '},
@@ -28,7 +28,8 @@ class ContactsSearchView extends Component {
   renderEmptyTable = () => {
     return (
       <ContactsTable
-        contacts={EMPTY_CONTACTS}
+        type='contacts'
+        data={EMPTY_CONTACTS}
         totalResults={10}
         renderShowButton={false}
       />
@@ -51,7 +52,8 @@ class ContactsSearchView extends Component {
     ? this.renderEmptyTable()
     : (
       <ContactsTable
-        contacts={contacts}
+        type='contacts'
+        data={contacts}
         totalResults={totalResults}
         renderShowButton={true}
       />
