@@ -14,7 +14,8 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, classes } = props;
+  const { numSelected, classes, page } = props;
+  const tableTitle = `${page} List`;
 
   return (
     <Toolbar
@@ -29,7 +30,7 @@ const EnhancedTableToolbar = (props) => {
           </Typography>
         ) : (
           <Typography variant="title" id="tableTitle">
-            Companies List
+            {tableTitle}
           </Typography>
         )}
       </div>

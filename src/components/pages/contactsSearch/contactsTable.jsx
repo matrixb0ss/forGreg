@@ -211,7 +211,10 @@ class EnhancedTable extends Component {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     return (
       <Paper className={classes.root}>
-        <TableToolbar numSelected={selected.length} />
+        <TableToolbar
+          numSelected={selected.length}
+          page='Contacts'
+        />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead

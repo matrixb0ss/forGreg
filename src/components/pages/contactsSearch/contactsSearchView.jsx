@@ -20,13 +20,17 @@ class ContactsSearchView extends Component {
     }
   }
 
-  renderEmptyTable = () => {
+  renderEmptyTable = (contacts) => {
+    const error = 'No such contacts, please enter valid data';
     return (
-      <ContactsTable
-        type='contacts'
-        data={EMPTY_CONTACTS}
-        renderShowButton={false}
-      />
+      <div>
+        {!contacts ? <div>{error}</div> : null}
+        <ContactsTable
+          type='contacts'
+          data={EMPTY_CONTACTS}
+          renderShowButton={false}
+        />
+      </div>
     )
   }
 
@@ -42,8 +46,8 @@ class ContactsSearchView extends Component {
   renderContactsTable = () => {
     const { contacts, total } = this.state;
     const totalResults = (total < 100000) ? total : 100000;
-    return contacts.length === 0
-    ? this.renderEmptyTable()
+    return !contacts || contacts.length === 0
+    ? this.renderEmptyTable(contacts)
     : (
       <ContactsTable
         type='contacts'
@@ -56,7 +60,7 @@ class ContactsSearchView extends Component {
 
   render () {
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div>
         <PageTitle />
         <ContactsSearchForm
             getContacts={this.getContacts}

@@ -213,7 +213,10 @@ class EnhancedTable extends Component {
 
     return (
       <Paper className={classes.root}>
-        <TableToolbar numSelected={selected.length} />
+        <TableToolbar
+          numSelected={selected.length}
+          page='Companies'
+        />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead

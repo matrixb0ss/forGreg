@@ -21,12 +21,16 @@ class CompanySearchView extends Component {
     }
   }
 
-  renderEmptyTable = () => {
+  renderEmptyTable = (companies) => {
+    const error = 'No such companies, please enter valid data';
     return (
-      <CompaniesTable
-        data={EMPTY_COMPANIES}
-        renderShowButton={false}
-      />
+      <div>
+        {!companies ? <div>{error}</div> : null}
+        <CompaniesTable
+          data={EMPTY_COMPANIES}
+          renderShowButton={false}
+        />
+      </div>
     )
   }
 
@@ -42,8 +46,8 @@ class CompanySearchView extends Component {
   renderCompaniesTable = () => {
     const { companies, total } = this.state;
     const totalResults = (total < 100000) ? total : 100000;
-    return companies.length === 0
-    ? this.renderEmptyTable()
+    return !companies || companies.length === 0
+    ? this.renderEmptyTable(companies)
     : (
       <CompaniesTable
         type='companies'
