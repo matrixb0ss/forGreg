@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PageTitle from './companiesPageTitle';
 import CompaniesSearchForm from './companiesSearchForm';
-import CompaniesTable from '../.././newTable';
+import CompaniesTable from './companiesTable';
 
 
 const EMPTY_COMPANIES = [
@@ -46,6 +46,7 @@ class CompanySearchView extends Component {
     ? this.renderEmptyTable()
     : (
       <CompaniesTable
+        type='companies'
         data={companies}
         totalResults={totalResults}
         renderShowButton={true}

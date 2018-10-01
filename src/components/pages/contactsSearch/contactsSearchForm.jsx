@@ -10,6 +10,7 @@ class ContactsSearchForm extends Component {
     this.state = {
       companyName: '',
       cities: [],
+      fullName: '',
     }
   }
 
@@ -23,18 +24,24 @@ class ContactsSearchForm extends Component {
     this.setState({ cities });
   }
 
-  isAllParametersEmpty = (companyName, cities) => {
-    return _.isEmpty(companyName) && _.isEmpty(cities)
+  onFullNameChange = (e) => {
+    const fullName = e.target && e.target.value;
+    this.setState({ fullName });
+  }
+
+  isAllParametersEmpty = (companyName, cities, fullName) => {
+    return _.isEmpty(companyName) && _.isEmpty(cities) && _.isEmpty(fullName)
     ? null
     : {
       companyName,
-      cities
+      cities,
+      fullName,
     }
   }
 
   render () {
-    const { companyName, cities } = this.state;
-    const params = this.isAllParametersEmpty(companyName, cities);
+    const { companyName, cities, fullName } = this.state;
+    const params = this.isAllParametersEmpty(companyName, cities, fullName);
     const { getContacts } = this.props;
     return (
       <div style={styles.formWrapper}>
@@ -49,6 +56,12 @@ class ContactsSearchForm extends Component {
           label="Cities (separated by coma)"
           margin="normal"
           onChange={(e) => this.onCountryChange(e)}
+        />
+        <TextField
+          style={styles.textField}
+          label="Full Name"
+          margin="normal"
+          onChange={(e) => this.onFullNameChange(e)}
         />
         <SearchButton
           params={params}

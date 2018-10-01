@@ -10,8 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import { EnhancedTableHead } from './tableHead';
-import TableToolbar from './tableToolbar';
+import { EnhancedTableHead } from '../.././tableHead';
+import TableToolbar from '../.././tableToolbar';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import Select from '@material-ui/core/Select';
 // import Input from '@material-ui/core/Input';
@@ -20,9 +20,9 @@ import TableToolbar from './tableToolbar';
 const rows = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Company Name' },
   { id: 'country', numeric: false, disablePadding: false, label: 'Country' },
-  { id: 'state', numeric: false, disablePadding: false, label: 'State' },
-  { id: 'city', numeric: false, disablePadding: false, label: 'City' },
-  { id: 'details', numeric: false, disablePadding: false, label: 'Company Details' },
+  { id: 'state', numeric: false, disablePadding: false, label: 'First name' },
+  { id: 'city', numeric: false, disablePadding: false, label: 'Last name' },
+  { id: 'details', numeric: false, disablePadding: false, label: 'Contact Details' },
 ];
 
 
@@ -121,11 +121,10 @@ class EnhancedTable extends Component {
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
-  renderShowButton = (name) => {
-    const companyName = name.replace(/\s/g,'');
+  renderShowButton = (id) => {
     const { classes, renderShowButton } = this.props;
     return renderShowButton && (
-      <Link to={`/show-companies-details/${companyName}`}>
+      <Link to={`/show-contact-details/${id}`}>
         <Button
           variant="outlined"
           className={classes.button}
@@ -210,7 +209,6 @@ class EnhancedTable extends Component {
     const { classes } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
     return (
       <Paper className={classes.root}>
         <TableToolbar numSelected={selected.length} />
@@ -228,28 +226,28 @@ class EnhancedTable extends Component {
             <TableBody>
               {this.stableSort(data, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(obj => {
-                  const isSelected = this.isSelected(obj.id);
+                .map(contact => {
+                  const isSelected = this.isSelected(contact.id);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, obj.id)}
+                      onClick={event => this.handleClick(event, contact.id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={obj.id}
+                      key={contact.id}
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {obj.name}
+                        {contact.companyName}
                       </TableCell>
-                      <TableCell className={classes.tablecell} numeric>{obj.country}</TableCell>
-                      <TableCell className={classes.tablecell} numeric>{obj.state}</TableCell>
-                      <TableCell className={classes.tablecell} numeric>{obj.city}</TableCell>
-                      <TableCell> { this.renderShowButton(obj.name) } </TableCell>
+                      <TableCell className={classes.tablecell} numeric>{contact.country}</TableCell>
+                      <TableCell className={classes.tablecell} numeric>{contact.firstName}</TableCell>
+                      <TableCell className={classes.tablecell} numeric>{contact.lastName}</TableCell>
+                      <TableCell> { this.renderShowButton(contact.id) } </TableCell>
                     </TableRow>
                   );
                 })}
