@@ -14,8 +14,8 @@ import customDataProvider from './providers/customDataProvider';
 
 const App = () => (
     <Admin authProvider={authProvider} dataProvider={customDataProvider} >
-        {/* <Resource name="companies" list={CompanyList} show={CompanyShow} />
-        <Resource name="contacts" list={ContactList} show={ContactShow} /> */}
+        <Resource name="companies" list={CompanyList} show={CompanyShow} />
+        <Resource name="contacts" list={ContactList} show={ContactShow} />
         <Resource name="companies-search-form" options={{ label: 'Companies' }} list={CompanySearchView} />
         <Resource name="contacts-search-form" options={{ label: 'Contacts' }} list={ContactsSearchView} />
     </Admin>
