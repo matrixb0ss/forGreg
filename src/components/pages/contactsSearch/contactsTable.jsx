@@ -226,7 +226,7 @@ class EnhancedTable extends Component {
             <TableBody>
               {this.stableSort(data, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(contact => {
+                .map((contact, index) => {
                   const isSelected = this.isSelected(contact.id);
                   return (
                     <TableRow
@@ -235,7 +235,7 @@ class EnhancedTable extends Component {
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={contact.id}
+                      key={contact.id || index}
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">
