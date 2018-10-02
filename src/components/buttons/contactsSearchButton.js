@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import qs from 'qs';
 
 
-const API_URL = `https://api.insideview.com/api/v1/target/contacts`;
+const API_URL = `https://api.insideview.com/api/v1/contacts`;
 
 const SearchButton = (props) => {
   const { classes } = props;
@@ -24,28 +24,50 @@ const SearchButton = (props) => {
 }
 
 const fetchData = (props) => {
-  const data = qs.stringify(props.params);
-  if (!props.params) return null;
+  const { params } = props;
+  const query = qs.stringify(params);
   const accessToken = localStorage.getItem('token');
-  return axios({
-      method: 'post',
-      url: API_URL,
-      data,
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          accessToken
-      }
-  })
-  .then(res => {
-      if (res.status < 200 || res.status >= 300) {
-          throw new Error(res.statusText);
-      }
-      return res.data;
-  })
-  .then(json => {
-    return props.getContacts(json);
-  });
+  const url = `${API_URL}?${query}`
+  const options = {
+    headers : new Headers({
+      Accept: 'application/json',
+      accessToken,
+    }),
+  };
+  return fetch(url, options)
+    .then(res => {
+      if (res.status !== 200) return { data: [] };
+      return res.json();
+    })
+    .then(json => {
+      return props.getContacts(json);
+    })
+    .catch(err => console.warn(err || err.message));
 }
+
+// const fetchData = (props) => {
+//   const data = qs.stringify(props.params);
+//   if (!props.params) return null;
+//   const accessToken = localStorage.getItem('token');
+//   return axios({
+//       method: 'post',
+//       url: API_URL,
+//       data,
+//       headers: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           accessToken
+//       }
+//   })
+//   .then(res => {
+//       if (res.status < 200 || res.status >= 300) {
+//           throw new Error(res.statusText);
+//       }
+//       return res.data;
+//   })
+//   .then(json => {
+//     return props.getContacts(json);
+//   });
+// }
 
 const styles = theme => ({
   button: {

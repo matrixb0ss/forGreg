@@ -9,8 +9,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-// import Select from '@material-ui/core/Select';
-// import Input from '@material-ui/core/Input';
 
 
 const EnhancedTableToolbar = (props) => {
@@ -42,14 +40,14 @@ const EnhancedTableToolbar = (props) => {
               <DeleteIcon />
             </IconButton>
           </Tooltip>
-        ) : (
+        ) : null }
+         {/* (
           <Tooltip title="Filter list">
-            {/* {this.renderSearchField(props)} */}
             <IconButton aria-label="Filter list">
               <FilterListIcon />
             </IconButton>
           </Tooltip>
-        )}
+        )} */}
       </div>
     </Toolbar>
   );

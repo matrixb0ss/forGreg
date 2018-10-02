@@ -21,7 +21,7 @@ class ContactsSearchView extends Component {
   }
 
   renderEmptyTable = (contacts) => {
-    const error = 'No such contacts, please enter valid data';
+    const error = 'No such contacts, please fill in both fields or enter a valid data';
     return (
       <div>
         {!contacts ? <div>{error}</div> : null}

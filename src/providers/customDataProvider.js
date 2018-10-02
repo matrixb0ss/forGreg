@@ -32,8 +32,8 @@ const getURL = (type, resource, params) => {
     }
     case GET_ONE: {
       let single = '';
-      if (resource === 'companies') single = 'company'
-      if (resource === 'contacts') single = 'contact'
+      if (resource === 'companies' || resource === 'companies-search-form') single = 'company'
+      if (resource === 'contacts' || resource === 'contacts-search-form') single = 'contact'
       return `${API_URL}/${single}/${params.id}`;
     }
     default:
@@ -42,6 +42,7 @@ const getURL = (type, resource, params) => {
 }
 
 const transformData = (json, resource) => {
+  console.log(resource, 'resource');
   switch (resource) {
     case 'companies': {
       if (json.companies) {
@@ -50,7 +51,21 @@ const transformData = (json, resource) => {
       }
       return {...json, id: json.companyId}
     }
+    case 'companies-search-form': {
+      if (json.companies) {
+          json.companies.forEach(c => c.id = c.companyId);
+          return json.companies;
+      }
+      return {...json, id: json.companyId}
+    }
     case 'contacts': {
+      if(json.contacts) {
+          json.contacts.forEach(c => c.id = c.contactId);
+          return json.contacts;
+      }
+      return {...json, id: json.contactId}
+    }
+    case 'contacts-search-form': {
       if(json.contacts) {
           json.contacts.forEach(c => c.id = c.contactId);
           return json.contacts;
@@ -70,6 +85,7 @@ const fetchData = (type, resource, url) => {
       accessToken,
     }),
   };
+  console.log(url, 'sssssss');
   return fetch(url, options)
     .then(res => {
       if (res.status !== 200) return { data: [] };

@@ -12,14 +12,15 @@ import ContactsSearchView from './components/pages/contactsSearch/contactsSearch
 import authProvider from './providers/authProvider';
 import customDataProvider from './providers/customDataProvider';
 
+
 const App = () => (
-    <Admin authProvider={authProvider} dataProvider={customDataProvider} >
-        <Resource name="companies" list={CompanyList} show={CompanyShow} />
-        <Resource name="contacts" list={ContactList} show={ContactShow} />
-        <Resource name="companies-search-form" options={{ label: 'Companies' }} list={CompanySearchView} />
-        <Resource name="contacts-search-form" options={{ label: 'Contacts' }} list={ContactsSearchView} />
-    </Admin>
-);
+  <Admin authProvider={authProvider} dataProvider={customDataProvider} >
+    <Resource name="companies" list={CompanyList} show={CompanyShow} />
+    <Resource name="contacts" list={ContactList} show={ContactShow} />
+    <Resource name="companies-search-form" options={{ label: 'Companies' }} list={CompanySearchView} show={CompanyShow} />
+    <Resource name="contacts-search-form" options={{ label: 'Contacts' }} list={ContactsSearchView} show={ContactShow} />
+  </Admin>
+)
 
 
 export default App;

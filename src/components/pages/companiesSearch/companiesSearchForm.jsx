@@ -8,33 +8,34 @@ export default class CompaniesSearchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      companyName: '',
-      cities: '',
+      name: '',
+      city: '',
     }
   }
 
   onCompanyChange = (e) => {
-    const companyName = e.target && e.target.value;
-    this.setState({ companyName });
+    const name = e.target && e.target.value;
+    this.setState({ name });
   }
 
   onCountryChange = (e) => {
-    const cities = e.target && e.target.value;
-    this.setState({ cities });
+    const city = e.target && e.target.value;
+    this.setState({ city });
   }
 
-  isAllParametersEmpty = (companyName, cities) => {
-    return _.isEmpty(companyName) && _.isEmpty(cities)
+  isAllParametersEmpty = (name = '', city = '') => {
+    const data = {};
+    if (!_.isEmpty(name)) data.name = name;
+    if (!_.isEmpty(city)) data.city = city;
+
+    return _.isEmpty(name) && _.isEmpty(city)
     ? null
-    : {
-      companyName,
-      cities
-    }
+    : data
   }
 
   render () {
-    const { companyName, cities } = this.state;
-    const params = this.isAllParametersEmpty(companyName, cities);
+    const { name, city } = this.state;
+    const params = this.isAllParametersEmpty(name, city);
     const { getCompanies } = this.props;
     return (
       <div style={styles.formWrapper}>

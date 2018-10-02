@@ -15,6 +15,7 @@ import TableToolbar from '../.././tableToolbar';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import Select from '@material-ui/core/Select';
 // import Input from '@material-ui/core/Input';
+// import TextField from '@material-ui/core/TextField';
 
 
 const rows = [
@@ -53,6 +54,8 @@ class EnhancedTable extends Component {
       data: [],
       page: 0,
       rowsPerPage: 5,
+      columnToQuery: 'Company Name',
+      query: null,
     };
   }
 
@@ -121,11 +124,10 @@ class EnhancedTable extends Component {
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
-  renderShowButton = (name) => {
-    const companyName = name.replace(/\s/g,'');
+  renderShowButton = (id) => {
     const { classes, renderShowButton } = this.props;
     return renderShowButton && (
-      <Link to={`/show-company-details/${companyName}`}>
+      <Link to={`/companies-search-form/${id}/show`}>
         <Button
           variant="outlined"
           className={classes.button}
@@ -162,8 +164,9 @@ class EnhancedTable extends Component {
   }
 
 
-  // renderSearchField = (props) => {
-  //   const { theme } = props;
+  // renderSearchField = () => {
+  //   const { theme } = this.props;
+  //   const { columnToQuery, query } = this.state;
   //   const ITEM_HEIGHT = 48;
   //   const ITEM_PADDING_TOP = 8;
   //   const MenuProps = {
@@ -176,40 +179,46 @@ class EnhancedTable extends Component {
   //   };
   //
   //   return (
-  //     <Select
-  //       multiple
-  //       value={this.state.name}
-  //       onChange={(event, index, value) => {
-  //         this.setState({ columtToQuery: value });
-  //       }}
-  //       input={<Input id="select-multiple" />}
-  //       MenuProps={MenuProps}
-  //       floatingLabel="Select a column"
-  //     >
-  //       {rows.map(row => (
-  //         <MenuItem
-  //           key={row.label}
-  //           value={row.label}
-  //           primaryText={row.label}
-  //           style={{
-  //             fontWeight:
-  //               this.state.name.indexOf(row.label) === -1
-  //                 ? theme.typography.fontWeightRegular
-  //                 : theme.typography.fontWeightMedium,
-  //           }}
-  //         >
-  //           {row.label}
-  //         </MenuItem>
-  //       ))}
-  //     </Select>
+  //     <div style={{ display: 'flex',  justifyContent: 'flex-end', marginBottom: '20px' }}>
+  //       <Select
+  //         value={columnToQuery}
+  //         onChange={this.onFilterChange}
+  //         input={<Input id="select-multiple" />}
+  //         MenuProps={MenuProps}
+  //         style={{ marginRight: 20 }}
+  //       >
+  //         {rows.map(row => (
+  //           <MenuItem
+  //             key={row.label}
+  //             value={row.label}
+  //           >
+  //             {row.label}
+  //           </MenuItem>
+  //         ))}
+  //       </Select>
+  //       <TextField
+  //         name='Search'
+  //         // label='Search by selected field'
+  //         value={query}
+  //         onChange={e => this.setState({ query: e.target.value })}
+  //         style={{ marginRight: 20 }}
+  //       />
+  //     </div>
   //   )
   // }
+
+  onFilterChange = (event) => {
+    const columnToQuery = event.target.value;
+    this.setState({ columnToQuery });
+  }
 
 
   render() {
     const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const { data, order, orderBy, selected, rowsPerPage, page, query, columnToQuery } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const lowerCaseQuery = query && query.toLowerCase();
+    const validData = query ? data.filter(obj => obj[columnToQuery].toLowerCase().includes(lowerCaseQuery)) : data;
 
     return (
       <Paper className={classes.root}>
@@ -217,6 +226,7 @@ class EnhancedTable extends Component {
           numSelected={selected.length}
           page='Companies'
         />
+        {/* {this.renderSearchField()} */}
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -226,10 +236,10 @@ class EnhancedTable extends Component {
               orderBy={orderBy}
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
+              rowCount={validData.length}
             />
             <TableBody>
-              {this.stableSort(data, this.getSorting(order, orderBy))
+              {this.stableSort(validData, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((company, index) => {
                   const isSelected = this.isSelected(company.id);
@@ -252,7 +262,7 @@ class EnhancedTable extends Component {
                       <TableCell className={classes.tablecell} numeric>{company.country}</TableCell>
                       <TableCell className={classes.tablecell} numeric>{company.state}</TableCell>
                       <TableCell className={classes.tablecell} numeric>{company.city}</TableCell>
-                      <TableCell> { this.renderShowButton(company.name) } </TableCell>
+                      <TableCell> { this.renderShowButton(company.companyId) } </TableCell>
                     </TableRow>
                   );
                 })}
@@ -266,7 +276,7 @@ class EnhancedTable extends Component {
         </div>
         <TablePagination
           component="div"
-          count={data.length}
+          count={validData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{

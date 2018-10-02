@@ -124,7 +124,7 @@ class EnhancedTable extends Component {
   renderShowButton = (id) => {
     const { classes, renderShowButton } = this.props;
     return renderShowButton && (
-      <Link to={`/show-contact-details/${id}`}>
+      <Link to={`/contacts-search-form/${id}/show`}>
         <Button
           variant="outlined"
           className={classes.button}
@@ -250,7 +250,7 @@ class EnhancedTable extends Component {
                       <TableCell className={classes.tablecell} numeric>{contact.country}</TableCell>
                       <TableCell className={classes.tablecell} numeric>{contact.firstName}</TableCell>
                       <TableCell className={classes.tablecell} numeric>{contact.lastName}</TableCell>
-                      <TableCell> { this.renderShowButton(contact.id) } </TableCell>
+                      <TableCell> { this.renderShowButton(contact.contactId) } </TableCell>
                     </TableRow>
                   );
                 })}
