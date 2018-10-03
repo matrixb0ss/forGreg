@@ -49,7 +49,6 @@ export const CompanyShow = (props) => (
       <TextField source="subIndustry" />
       <TextField source="subIndustryCode" />
       <TextField source="subsidiary" />
-      <TextField source="tickers" />
       <TextField source="ultimateParentCompanyId" />
       <TextField source="ultimateParentCompanyName" />
       <TextField source="ultimateParentCompanyCountry" />

@@ -4,7 +4,6 @@ import { TextField, Show, SimpleShowLayout } from 'react-admin';
 export const ContactShow = (props) => (
   <Show {...props}>
     <SimpleShowLayout>
-      <TextField source="active" />
       <TextField source="age" />
       <TextField source="companyId" />
       <TextField source="companyName" />

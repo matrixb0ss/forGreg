@@ -42,7 +42,6 @@ const getURL = (type, resource, params) => {
 }
 
 const transformData = (json, resource) => {
-  console.log(resource, 'resource');
   switch (resource) {
     case 'companies': {
       if (json.companies) {
@@ -85,7 +84,6 @@ const fetchData = (type, resource, url) => {
       accessToken,
     }),
   };
-  console.log(url, 'sssssss');
   return fetch(url, options)
     .then(res => {
       if (res.status !== 200) return { data: [] };
