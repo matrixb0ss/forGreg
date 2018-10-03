@@ -18,7 +18,7 @@ export default class CompaniesSearchForm extends Component {
     this.setState({ name });
   }
 
-  onCountryChange = (e) => {
+  onCityChange = (e) => {
     const city = e.target && e.target.value;
     this.setState({ city });
   }
@@ -28,9 +28,7 @@ export default class CompaniesSearchForm extends Component {
     if (!_.isEmpty(name)) data.name = name;
     if (!_.isEmpty(city)) data.city = city;
 
-    return _.isEmpty(name) && _.isEmpty(city)
-    ? null
-    : data
+    return _.isEmpty(name) && _.isEmpty(city) ? null : data;
   }
 
   render () {
@@ -47,9 +45,9 @@ export default class CompaniesSearchForm extends Component {
         />
         <TextField
           style={styles.textField}
-          label="Cities (separated by coma)"
+          label="City"
           margin="normal"
-          onChange={(e) => this.onCountryChange(e)}
+          onChange={(e) => this.onCityChange(e)}
         />
         <SearchButton
           style={styles.button}

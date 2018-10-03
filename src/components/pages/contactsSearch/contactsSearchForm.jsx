@@ -28,7 +28,7 @@ class ContactsSearchForm extends Component {
     if (!_.isEmpty(companyName)) data.companyName = companyName;
     if (!_.isEmpty(fullName)) data.fullName = fullName;
 
-    return data
+    return _.isEmpty(companyName) && _.isEmpty(fullName) ? null : data;
   }
 
   render () {
